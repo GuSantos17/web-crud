@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+   <title>Produtos</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Prova</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+              </li>
+            <li class="nav-item active">
+              <a class="btn btn-outline-success" href="/">HOME <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+   <br><br>
+   <hr />
+   {% for item in error %}
+   <p>{{ item }}</p>
+   {% endfor %}
+   <table class="table table-striped">
+      <center>
+         <h1>Cadastro</h1>
+         {% if product%}
+         {% for item in product %}
+         <div class="form-group">
+         <form action="/new_produto/" method="post">
+            <input type="number" name="id" value="{{ item.id }}" hidden>
+            <div class="form-group">
+            <input type="text" name="name" value="{{ item.name }}" class="form-control" required>
+            </div>
+            <div class="form-group">
+            <input type="text" name="qtd" value="{{ item.quantity }}" class="form-control">
+            </div>
+            <div class="form-group">
+            <input type="text" name="valor" value="{{ item.value }}" class="form-control">
+            </div>
+            <input type="submit" name="enviar" value="Salvar" class="btn btn-outline-success">
+         </form>
+         </div>
+         {% endfor %}
+         {% else %}
+         <div class="form-group">
+         <form action="/new_produto/" method="post">
+            <input type="number" name="id" value="-1" hidden>
+            <div class="form-group">
+            <input type="text" name="name" placeholder="Nome" class="form-control" required>
+            </div>
+            <input type="text" name="qtd" placeholder="Quantidade" class="form-control">
+            <div class="form-group">
+            <input type="text" name="valor" placeholder="Valor" class="form-control">
+            </div>
+            <input type="submit" name="enviar" value="Salvar" class="btn btn-outline-success">
+         </form>
+         </div>
+         {% endif %}
+
+
+      </center>
+   </table>
+
+   <br>
+   <hr /><br><br>
+   <ul>
+      <table class="table table-striped">
+         <h3>Produtos cadastrados</h3>
+         {% for item in list %}
+         <tr>
+            <td><b>Nome:</b> {{ item.name }}</td>
+            <td><b>Quantidade:</b> {{ item.quantity }}</td>
+            <td><b>Valor</b>:</b> {{ item.value }}</td>
+            <td><a href="/delete_produto/?id={{ item.id }}">Deletar</a></td>
+            <td><a href="/update_produto/?id={{ item.id }}">Alterar</a></td>
+         </tr>
+         {% endfor %}
+
+      </table>
+   </ul>
+</body>
+
+</html>
